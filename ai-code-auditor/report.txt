@@ -1,0 +1,78 @@
+============================================================
+  AI CODEBASE AUDITOR — REPORT
+============================================================
+  Files analyzed: 4
+
+  Total findings: 22
+
+
+────────────────────────────────────────────────────────────
+  FILE: analyzer.py
+────────────────────────────────────────────────────────────
+
+  [CODE QUALITY]
+    • Line 127 exceeds 120 characters (121 chars)
+    • Line 139 exceeds 120 characters (125 chars)
+    • Line 153 exceeds 120 characters (125 chars)
+    • Line 159 exceeds 120 characters (135 chars)
+    • Class 'FileReport' (line 16) is missing a docstring
+    • Function '_check_quality' (line 61) is missing a docstring
+    • Function '_check_bugs' (line 118) is missing a docstring
+    • Function '_check_improvements' (line 171) is missing a docstring
+    • Function '_check_improvements' (line 171) is 54 lines long — consider splitting it
+
+  [POTENTIAL BUGS]
+    • No bugs detected.
+
+  [IMPROVEMENTS]
+    • Consider replacing 'os.path' usage with 'pathlib.Path' for cleaner path handling
+
+────────────────────────────────────────────────────────────
+  FILE: auditor.py
+────────────────────────────────────────────────────────────
+
+  [CODE QUALITY]
+    • Function 'build_parser' (line 16) is missing a docstring
+    • Function 'main' (line 38) is missing a docstring
+    • Import 'print_report' (line 13) may be unused
+
+  [POTENTIAL BUGS]
+    • No bugs detected.
+
+  [IMPROVEMENTS]
+    • Line 42: consider replacing 'print()' with the 'logging' module for production code
+
+────────────────────────────────────────────────────────────
+  FILE: prompts.py
+────────────────────────────────────────────────────────────
+
+  [CODE QUALITY]
+    • Function 'code_quality_prompt' (line 7) is missing a docstring
+    • Function 'bug_detection_prompt' (line 27) is missing a docstring
+    • Function 'improvement_prompt' (line 48) is missing a docstring
+
+  [POTENTIAL BUGS]
+    • No bugs detected.
+
+  [IMPROVEMENTS]
+    • No improvements suggested.
+
+────────────────────────────────────────────────────────────
+  FILE: report.py
+────────────────────────────────────────────────────────────
+
+  [CODE QUALITY]
+    • Class 'Color' (line 15) is missing a docstring
+    • Function '_colorize' (line 26) is missing a docstring
+    • Function '_section_header' (line 32) is missing a docstring
+    • Function '_bullet_list' (line 39) is missing a docstring
+
+  [POTENTIAL BUGS]
+    • No bugs detected.
+
+  [IMPROVEMENTS]
+    • Line 100: consider replacing 'print()' with the 'logging' module for production code
+
+============================================================
+  Audit complete.
+============================================================
