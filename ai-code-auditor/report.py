@@ -88,8 +88,9 @@ def format_report(reports: list[FileReport], use_color: bool = True) -> str:
         lines.append(_colorize("\n  [IMPROVEMENTS]", Color.YELLOW + Color.BOLD, use_color))
         lines.append(_bullet_list(report.improvements, use_color))
 
+    error_count = sum(1 for r in reports if r.parse_error)
     lines.append("\n" + _colorize("=" * 60, Color.BOLD, use_color))
-    lines.append(_colorize("  Audit complete.", Color.GREEN + Color.BOLD, use_color))
+    lines.append(_colorize(f"  Audit complete. ({len(reports)} files, {error_count} errors)", Color.GREEN + Color.BOLD, use_color))
     lines.append(_colorize("=" * 60, Color.BOLD, use_color) + "\n")
 
     return "\n".join(lines)
