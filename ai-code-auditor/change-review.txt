@@ -1,0 +1,70 @@
+============================================================
+  AI CODEBASE AUDITOR — CHANGE REVIEW REPORT
+  File reviewed: diff.txt (main~1 → main)
+============================================================
+
+SUMMARY
+-------
+Changed file : ai-code-auditor/.github/workflows/claude-review.yml
+Change type  : New file added (GitHub Actions workflow)
+Lines added  : 27
+
+============================================================
+  CODE QUALITY
+============================================================
+
+• Workflow name and trigger are clearly defined — good structure overall.
+• Trigger is scoped to [opened, synchronize] pull_request events — appropriate.
+• Step names are descriptive and readable.
+• Missing: no newline at end of file (line 33) — add a trailing newline to comply
+  with POSIX/YAML best practices.
+
+============================================================
+  POTENTIAL BUGS
+============================================================
+
+• Line 29: `echo "\n\nProvide suggestions..."` — in bash, \n inside double quotes
+  is NOT a newline; it prints literally as \n. Use $'...' syntax or printf instead:
+    printf "\n\nProvide suggestions, bugs, and improvements.\n" >> prompt.txt
+
+• Line 23: `git diff origin/main > diff.txt` — this diffs the working tree against
+  origin/main, not the PR branch commits. For a PR review, use:
+    git diff origin/main...HEAD > diff.txt
+  The three-dot syntax correctly captures only the PR's changes.
+
+• No error handling — if `git fetch` or `git diff` fails, subsequent steps will
+  silently operate on an empty or stale diff.txt.
+
+============================================================
+  IMPROVEMENTS
+============================================================
+
+• The "Run Claude Review" step only builds a prompt file — it never actually calls
+  Claude or any AI tool. To make this functional, integrate the official
+  Anthropic Claude GitHub Action or call the Claude API via curl/Python script.
+
+• Consider pinning action versions to a SHA for security:
+    uses: actions/checkout@v3
+  should be:
+    uses: actions/checkout@<full-sha>
+
+• Add a `permissions` block to restrict the workflow's GitHub token scope:
+    permissions:
+      contents: read
+      pull-requests: write
+
+• The generated diff.txt and prompt.txt are not uploaded as artifacts — consider
+  adding an `actions/upload-artifact` step so review output is preserved per run.
+
+• No timeout set on the job — add `timeout-minutes: 10` to prevent runaway jobs.
+
+============================================================
+  VERDICT
+============================================================
+
+The workflow is a solid starting skeleton but is incomplete and has two functional
+bugs (echo \n issue, wrong git diff range). Address these before relying on it in CI.
+
+============================================================
+  Review complete. (1 file reviewed, 0 parse errors)
+============================================================
