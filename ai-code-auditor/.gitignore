@@ -1,0 +1,12 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Generated report files
+*.txt
+
+# Virtual environments
+.venv/
+venv/
+env/
